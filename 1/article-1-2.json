@@ -1,0 +1,18 @@
+{
+  "id": 2,
+  "issueId": 1,
+  "title": "Katie Golfs 5 Days a Week & Works All Week",
+  "content": "# 🛠 Adding an App Icon to Your Golang Fyne App (macOS & Windows)\n\nThis guide explains how to embed an app icon for your Go + Fyne application on **macOS** and **Windows** platforms.\n\n---\n\n## ✅ 1. Prepare Your App Icon\n\n- Format: `.png` (Fyne-compatible)\n- Recommended size: **512×512**\n- Save as: `Icon.png`\n\n---\n\n## ✅ 2. Set Icon in Go Code\n\nIn your `main.go`:\n\n```go\na := app.NewWithID(\"com.acoustic.qaa\")\n\nicon, err := fyne.LoadResourceFromPath(\"Icon.png\")\nif err == nil {\n    a.SetIcon(icon)\n}\n```\n\nThis sets the icon for the app window and dock/taskbar.\n\n---\n\n## 🍎 3. macOS: Embed Icon in .app Bundle\n\nUse the `fyne` CLI tool:\n\n```bash\nfyne package -os darwin -icon Icon.png\n```\n\n- Generates a proper `.app` with `Icon.png` embedded\n- Places icon in `Contents/Resources/`\n- Optionally modify `Info.plist` to customize further\n\n---\n\n## 🪟 4. Windows: Embed Icon in .exe with `.ico` + `.syso`\n\n### Step-by-Step:\n\n#### A. Convert `.png` to `.ico`\n\nUse a free online tool like:  \nhttps://www.icoconverter.com\n\nSave it as `app.ico`.\n\n---\n\n#### B. Create `resource.rc` file\n\n```rc\napp ICON \"app.ico\"\n```\n\n---\n\n#### C. Compile `.rc` to `.syso`\n\nYou need `windres` from `mingw-w64`.\n\n```bash\nx86_64-w64-mingw32-windres resource.rc -O coff -o resource.syso\n```\n\n---\n\n#### D. Build the Windows binary\n\n```bash\nGOOS=windows GOARCH=amd64 go build -ldflags -H=windowsgui -o yourapp.exe\n```\n\n- `-H=windowsgui` disables the console window\n- `resource.syso` must be in the same folder as `main.go`\n\n---\n\n## 🧠 Summary\n\n| Platform  | Method |\n|-----------|--------|\n| **macOS** | `fyne package -os darwin -icon Icon.png` |\n| **Windows** | Convert `.png` to `.ico`, use `windres` to make `.syso`, build with `go build` |\n| **Both** | Use `a.SetIcon()` in Go code for runtime icon setting |\n\n---\n\nLet me know if you want a downloadable `.rc` or sample script!",
+  "imageUrl": "pics/golf1.png",
+  "shareImageUrl": null,
+  "publishedDate": "2025-06-26T10:28:00.318Z",
+  "contentType": "markdown",
+  "author": "Hellie",
+  "version": "a",
+  "webUrl": null,
+  "topicBanner": null,
+  "topicBannerFontColor": null,
+  "topicBannerFillColor": null,
+  "isPublished": 1,
+  "articleNo": 2
+}
